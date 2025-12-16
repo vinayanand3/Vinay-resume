@@ -256,8 +256,15 @@ export default function App() {
                     combined.push({ type: 'education', data: edu, sortYear });
                   });
                   
-                  // Sort by year (descending - most recent first)
-                  combined.sort((a, b) => b.sortYear - a.sortYear);
+                  // Sort: experience first (by year descending), then education (by year descending)
+                  combined.sort((a, b) => {
+                    // First, separate by type: experience comes before education
+                    if (a.type !== b.type) {
+                      return a.type === 'experience' ? -1 : 1;
+                    }
+                    // If same type, sort by year (descending - most recent first)
+                    return b.sortYear - a.sortYear;
+                  });
                   
                   return combined.map(item => 
                     item.type === 'experience' ? (
