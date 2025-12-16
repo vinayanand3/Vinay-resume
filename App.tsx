@@ -93,12 +93,15 @@ const EducationCard: React.FC<{ education: Education }> = ({ education }) => (
   </div>
 );
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
-  <a
-    href={project.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group block"
+const ProjectCard: React.FC<{ project: Project; onSelect: (project: Project) => void }> = ({ project, onSelect }) => (
+  <button
+    type="button"
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onSelect(project);
+    }}
+    className="group block w-full text-left cursor-pointer"
   >
     <div className="relative grid grid-cols-1 md:grid-cols-8 gap-4 mb-12 hover:bg-zinc-900/40 p-0 md:-mx-4 md:p-4 rounded-lg transition-all border border-transparent hover:border-zinc-800/50">
       <div className="md:col-span-2 mt-1">
@@ -134,7 +137,58 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
         </div>
       </div>
     </div>
-  </a>
+  </button>
+);
+
+const ProjectDetail: React.FC<{ project: Project; onBack: () => void }> = ({ project, onBack }) => (
+  <article className="space-y-6">
+    <button
+      type="button"
+      onClick={onBack}
+      className="mb-4 inline-flex items-center text-xs uppercase tracking-widest text-zinc-500 hover:text-zinc-200 transition-colors"
+    >
+      <ArrowRight className="mr-1 h-3 w-3 rotate-180" />
+      Back to projects
+    </button>
+
+    <h3 className="text-xl font-semibold text-zinc-100 flex items-center gap-3">
+      {project.title}
+      <span className="inline-flex flex-wrap gap-1">
+        {project.technologies.map((tech) => (
+          <span
+            key={tech}
+            className="px-2 py-0.5 text-[11px] rounded-full bg-zinc-800/60 text-zinc-300 border border-zinc-700"
+          >
+            {tech}
+          </span>
+        ))}
+      </span>
+    </h3>
+
+    <p className="text-sm text-zinc-400 leading-relaxed">
+      {project.description}
+    </p>
+
+    {project.details && project.details.length > 0 && (
+      <div className="space-y-4 text-sm text-zinc-400 leading-relaxed">
+        {project.details.map((paragraph, idx) => (
+          <p key={idx}>{paragraph}</p>
+        ))}
+      </div>
+    )}
+
+    {project.link && (
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
+      >
+        View related work on GitHub
+        <ExternalLink className="h-4 w-4" />
+      </a>
+    )}
+  </article>
 );
 
 // -- Main App Component --
@@ -142,6 +196,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
 export default function App() {
   const [activeSection, setActiveSection] = useState('about');
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const sectionIds = useMemo(() => ['about', 'experience', 'education', 'projects'], []);
 
@@ -342,11 +397,15 @@ export default function App() {
 
             {/* PROJECTS */}
             <section id="projects" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <SectionHeader title="Projects" />
+              <SectionHeader title={selectedProject ? "Project Details" : "Projects"} />
               <div>
-                {RESUME_DATA.projects.map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
+                {selectedProject ? (
+                  <ProjectDetail project={selectedProject} onBack={() => setSelectedProject(null)} />
+                ) : (
+                  RESUME_DATA.projects.map(project => (
+                    <ProjectCard key={project.id} project={project} onSelect={setSelectedProject} />
+                  ))
+                )}
               </div>
             </section>
             

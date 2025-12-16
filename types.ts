@@ -28,6 +28,8 @@ export interface Project {
   link?: string;
   github?: string;
   image?: string;
+  // Optional richer narrative for a dedicated project detail view
+  details?: string[];
 }
 
 export interface SkillGroup {

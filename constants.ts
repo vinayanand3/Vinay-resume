@@ -85,35 +85,67 @@ export const RESUME_DATA: ResumeData = {
   projects: [
     {
       id: "proj-1",
-      title: "Material Comparison Automation Tool",
-      description: "Created Python-based tools to compare mechanical properties and chemistry of different flat steel grades, aiding in the execution of flex sourcing strategies for cost optimization at Nissan.",
-      technologies: ["Python", "Data Analysis", "Automation"],
+      title: "Nissan - Flex Sourcing for Flat Steel",
+      description: "Flex sourcing for flat steel and material comparison and automation tools. Created Python-based tools to compare mechanical properties and chemistry of different flat steel grades, aiding in the execution of flex sourcing strategies for cost optimization at Nissan.",
+      technologies: ["Python", "Data Analysis", "Automation", "Material Science"],
+      details: [
+        "Built internal Python utilities to ingest mechanical property and chemistry data for flat steel grades coming from multiple suppliers. The tools normalize units, validate ranges, and highlight outliers so material engineers can trust the inputs before making sourcing decisions.",
+        "Modeled side‑by‑side comparisons of candidate steels for a given application, surfacing trade‑offs in yield strength, elongation, and chemistry. This directly supports Nissan's flex‑sourcing strategy, where multiple suppliers can qualify for the same part while still meeting DVPR requirements.",
+        "Automated report generation so that engineering, purchasing, and supplier quality can review a single, consistent data pack instead of manually stitching together spreadsheets."
+      ],
       link: "https://github.com/vinayanand3",
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop"
+      image: "/vinay-resume/projects/nissan-flex-sourcing/image.jpg"
     },
     {
       id: "proj-2",
-      title: "Rivian RPV/R1T Bumper & Fasteners",
-      description: "Designed radar brackets, attachment features on bumper beams, and developed fastening strategies (spot welds, rivets) for Rivian's electric delivery vans and trucks.",
-      technologies: ["Catia V6", "Manufacturing", "EV Design"],
+      title: "Rivian - R1T/R1S/EDV BIW Design",
+      description: "R1T/R1S/EDV - BIW design (floor, B-pillar, roof components), welds, fasteners and sealers commonization, benchmarking. Designed and developed BIW structures for Rivian's electric vehicles.",
+      technologies: ["Catia V6 (3DX)", "BIW Design", "Manufacturing", "EV Design"],
+      details: [
+        "Owned BIW design for Rivian's R1T, R1S, and EDV platforms, including floor panels, B-pillar components, and roof structures in Catia V6 (3DX).",
+        "Defined and released resistance spot weld, self‑piercing rivet (SPR), and flow‑drill screw patterns across BIW structure, focusing on commonization between platforms to reduce complexity and support cost‑saving initiatives.",
+        "Conducted benchmarking studies and provided plant support in Normal, IL, using production feedback to iterate fastener layouts and sealing strategies."
+      ],
       link: "https://github.com/vinayanand3",
-      image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
+      image: "/vinay-resume/projects/rivian-biw-design/image.jpg"
     },
     {
       id: "proj-3",
-      title: "Jeep Wrangler EA Brackets",
-      description: "Designed and developed Energy Absorbing (EA) brackets for cross-car beams, working with safety teams to meet FMVSS requirements during frontal crash tests.",
-      technologies: ["Safety Engineering", "Crash Analysis", "Product Design"],
+      title: "FCA - Ram 1500/2500 & Jeep Wrangler",
+      description: "Ram 1500/2500 and Jeep Wrangler - Steering columns and EA brackets. Resolved I-shaft warranty issues for RAM trucks and designed Energy Absorbing (EA) brackets for cross-car beams.",
+      technologies: ["NX11", "Catia V5", "DFSS", "Root Cause Analysis", "Safety Engineering", "Crash Analysis"],
+      details: [
+        "I-Shaft Warranty Reduction & Design Optimization: Tasked with resolving high warranty returns caused by water intrusion in lower I-shaft bearing seals and assembly failures due to dash panel interference. Led a root cause analysis using Kepner Tregoe (Red X) methodologies to isolate failure modes. Leveraged DFSS Green Belt principles to optimize the upper I-shaft design and re-engineered the lower bearing seals using NX11 and Catia V5. Developed and executed a comprehensive DVPR to validate the new geometry. Successfully implemented design changes that eliminated water intrusion, resolved assembly interference issues, and significantly reduced overall warranty costs.",
+        "Jeep Wrangler EA Brackets: Led design of energy‑absorbing (EA) brackets on the Jeep Wrangler cross‑car beam, starting from FD curves and FMVSS targets provided by the safety team. Collaborated closely with CAE to iterate bracket geometry and thickness, translating crash simulation feedback into practical, manufacturable sheet‑metal solutions in NX/Catia. Drove the parts through release, coordinating with suppliers and manufacturing to ensure tooling feasibility and robust performance during physical frontal crash testing."
+      ],
       link: "https://github.com/vinayanand3",
-      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop"
+      image: "/vinay-resume/projects/fca-steering-ea/image.jpg"
     },
-     {
+    {
       id: "proj-4",
-      title: "Ford F150 Electric Components",
-      description: "Designed OBD mounting brackets and floor panel reinforcements to accommodate high-voltage batteries for the electric version of the Ford F150.",
-      technologies: ["EV Packaging", "Sheet Metal", "Catia V5"],
+      title: "Ford - F150 Lightning, Mondeo, Lincoln MKZ",
+      description: "F150 Lightning, Ford Mondeo, Lincoln MKZ - Steering columns and gears motion mapping, plastic cooling ducts design, wireharness routing.",
+      technologies: ["Catia V5", "Teamcenter", "KBE", "Motion Mapping", "EV Packaging"],
+      details: [
+        "Designed steering columns and performed motion mapping for steering gears using KBE tools across multiple Ford platforms including F150 Lightning, Mondeo, and Lincoln MKZ.",
+        "Designed plastic cooling ducts and wireharness routing to accommodate high-voltage battery systems and electric powertrain components.",
+        "Evaluated 2D drawings and digital bucks in Teamcenter/Vismockup to verify GD&T, packaging clearances, and assembly feasibility before releasing to production."
+      ],
       link: "https://github.com/vinayanand3",
-      image: "https://images.unsplash.com/photo-1552060196-6eae4f886c99?q=80&w=2070&auto=format&fit=crop"
+      image: "/vinay-resume/projects/ford-steering-components/image.jpg"
+    },
+    {
+      id: "proj-5",
+      title: "Hyundai - I10/I20 BIW Design",
+      description: "I10, I20 : BIW design (floor and dash panel), benchmarking. Designed BIW structure parts for Hyundai's compact car platforms.",
+      technologies: ["Catia V5", "BIW Design", "Reverse Engineering", "Cost Reduction", "PLM"],
+      details: [
+        "Designed BIW structure parts including underbody, rear floor, and dash panel for i10 and i20 projects at Hyundai Motor India Engineering.",
+        "Performed digital pre-assembly checks and reverse engineering from 3D scan data to support design validation and manufacturing feasibility.",
+        "Conducted benchmarking studies and cost reduction initiatives, working with cross-functional teams to optimize designs for production."
+      ],
+      link: "https://github.com/vinayanand3",
+      image: "/vinay-resume/projects/hyundai-biw-design/image.jpg"
     }
   ],
   skills: [
