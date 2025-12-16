@@ -1,0 +1,249 @@
+import React, { useState, useEffect } from 'react';
+import { Github, Linkedin, Twitter, Mail, ExternalLink, ArrowRight, FileText, ChevronRight } from 'lucide-react';
+import { RESUME_DATA } from './constants';
+import Timeline from './components/Timeline';
+import { SocialLink, Project, Experience } from './types';
+
+// -- Sub Components --
+
+const IconMap = {
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+  FileText
+};
+
+const SocialButton: React.FC<{ link: SocialLink }> = ({ link }) => {
+  const Icon = IconMap[link.iconName as keyof typeof IconMap] || ExternalLink;
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="p-2 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded-lg transition-all duration-200 group"
+      aria-label={link.platform}
+    >
+      <Icon size={20} className="group-hover:scale-110 transition-transform" />
+    </a>
+  );
+};
+
+const SectionHeader: React.FC<{ title: string }> = ({ title }) => (
+  <h2 className="text-sm font-bold uppercase tracking-widest text-zinc-500 mb-8 sticky top-0 bg-background/80 backdrop-blur-sm py-4 z-10 w-full">
+    {title}
+  </h2>
+);
+
+const ExperienceCard: React.FC<{ job: Experience }> = ({ job }) => (
+  <div className="group relative grid grid-cols-1 md:grid-cols-8 gap-4 mb-12 transition-all">
+    <div className="md:col-span-2 text-xs text-zinc-500 font-medium uppercase tracking-wide mt-1">
+      {job.period}
+    </div>
+    <div className="md:col-span-6">
+      <h3 className="font-medium text-zinc-100 text-lg group-hover:text-accent transition-colors flex items-center gap-2">
+        {job.role}
+        <span className="text-zinc-500 font-normal text-base"> — {job.company}</span>
+      </h3>
+      <p className="mt-2 text-zinc-400 leading-relaxed text-sm">
+        {job.description}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {job.technologies.map(tech => (
+          <span key={tech} className="px-2.5 py-1 text-xs rounded-full bg-zinc-800/50 text-accent border border-zinc-800/50">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
+  <a
+    href={project.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group block"
+  >
+    <div className="relative grid grid-cols-1 md:grid-cols-8 gap-4 mb-12 hover:bg-zinc-900/40 p-0 md:-mx-4 md:p-4 rounded-lg transition-all border border-transparent hover:border-zinc-800/50">
+      <div className="md:col-span-2 mt-1">
+        <div className="rounded border border-zinc-800 bg-zinc-900 overflow-hidden h-20 w-32 md:w-full md:h-24 relative">
+          {/* Placeholder for image - using a subtle gradient if image fails or just as style */}
+          {project.image ? (
+            <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity" />
+          ) : (
+             <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900" />
+          )}
+        </div>
+      </div>
+      <div className="md:col-span-6">
+        <h3 className="font-medium text-zinc-100 text-lg group-hover:text-accent transition-colors flex items-center gap-2">
+          {project.title}
+          <ArrowRight size={16} className="-translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-accent" />
+        </h3>
+        <p className="mt-2 text-zinc-400 leading-relaxed text-sm">
+          {project.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.technologies.map(tech => (
+            <span key={tech} className="px-2.5 py-1 text-xs rounded-full bg-zinc-800/50 text-zinc-300 border border-zinc-800/50 group-hover:border-accent/20 group-hover:text-accent transition-colors">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </a>
+);
+
+// -- Main App Component --
+
+export default function App() {
+  const [activeSection, setActiveSection] = useState('about');
+
+  // Simple scroll spy to update active section in sidebar (desktop only)
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'experience', 'projects', 'contact'];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top >= 0 && rect.top <= 300) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(id);
+  };
+
+  const resumeUrl = RESUME_DATA.socials.find(s => s.platform === 'Resume')?.url || "#";
+
+  return (
+    <div className="min-h-screen bg-background text-zinc-400 selection:bg-accent/20 selection:text-accent font-sans">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-24 py-12 lg:py-0">
+        <div className="lg:flex lg:justify-between lg:gap-12">
+          
+          {/* -- LEFT COLUMN (Fixed Header) -- */}
+          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[45%] lg:flex-col lg:justify-between lg:py-24">
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-100">
+                <a href="/">{RESUME_DATA.name}</a>
+              </h1>
+              <h2 className="mt-3 text-lg font-medium text-zinc-100 tracking-tight sm:text-xl">
+                {RESUME_DATA.title}
+              </h2>
+              <p className="mt-4 max-w-xs leading-normal text-zinc-400">
+                {RESUME_DATA.bio}
+              </p>
+
+              {/* Navigation (Desktop) */}
+              <nav className="nav hidden lg:block mt-16" aria-label="In-page jump links">
+                <ul className="w-max">
+                  {['about', 'experience', 'projects'].map((item) => (
+                    <li key={item}>
+                      <button 
+                        onClick={() => scrollTo(item)}
+                        className={`group flex items-center py-3 active focus:outline-none transition-all ${activeSection === item ? 'text-zinc-100' : 'text-zinc-500 hover:text-zinc-200'}`}
+                      >
+                        <span className={`mr-4 h-px transition-all bg-zinc-600 group-hover:w-16 group-hover:bg-zinc-200 ${activeSection === item ? 'w-16 bg-zinc-100' : 'w-8'}`}></span>
+                        <span className="text-xs font-bold uppercase tracking-widest">
+                          {item}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+
+              {/* Timeline Animation */}
+              <div className="hidden lg:block">
+                 <Timeline />
+              </div>
+            </div>
+
+            {/* Socials & Resume */}
+            <div className="mt-8 flex items-center gap-4 lg:mt-0">
+               {RESUME_DATA.socials.map((link) => (
+                 <SocialButton key={link.platform} link={link} />
+               ))}
+               {/* Availability Indicator */}
+               {RESUME_DATA.availability && (
+                 <div className="ml-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                   <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                   </span>
+                   <span className="text-xs font-medium text-emerald-400">Available for work</span>
+                 </div>
+               )}
+            </div>
+          </header>
+
+          {/* -- RIGHT COLUMN (Scrollable Content) -- */}
+          <main className="pt-24 lg:w-[55%] lg:py-24">
+            
+            {/* ABOUT */}
+            <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+              <SectionHeader title="About" />
+              <div className="text-zinc-400 leading-relaxed space-y-4">
+                <p>
+                  I am an experienced <span className="text-zinc-100">Design Engineer</span> with over 10 years in the automotive industry. My expertise lies in <span className="text-zinc-100">Body in White (BIW)</span> structures, sheet metal product design, and executing new vehicle development programs from concept to production.
+                </p>
+                <p>
+                   I have had the privilege of working with global OEMs including <span className="text-zinc-100">Rivian</span>, <span className="text-zinc-100">Ford</span>, <span className="text-zinc-100">FCA</span>, and <span className="text-zinc-100">Hyundai</span>, gaining valuable cross-functional experience.
+                </p>
+                <p>
+                  Currently, I am bridging the gap between mechanical engineering and software by pursuing a <span className="text-zinc-100">Master's in Computer Science (OMSCS)</span> at Georgia Tech. I am passionate about leveraging <span className="text-zinc-100">Python</span> and <span className="text-zinc-100">Generative AI</span> to build tools that optimize engineering workflows and solve complex manufacturing problems.
+                </p>
+              </div>
+            </section>
+
+            {/* EXPERIENCE */}
+            <section id="experience" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+              <SectionHeader title="Experience" />
+              <div>
+                {RESUME_DATA.experience.map(job => (
+                  <ExperienceCard key={job.id} job={job} />
+                ))}
+              </div>
+              <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center font-medium leading-tight text-zinc-100 font-semibold group" aria-label="View Full Resume">
+                <span className="border-b border-transparent pb-px transition group-hover:border-accent motion-reduce:transition-none">
+                  View Full Resume
+                </span>
+                <ArrowRight className="ml-1 h-4 w-4 shrink-0 -translate-x-1 transition-transform group-hover:translate-x-0 group-hover:text-accent motion-reduce:transition-none" />
+              </a>
+            </section>
+
+            {/* PROJECTS */}
+            <section id="projects" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+              <SectionHeader title="Projects" />
+              <div>
+                {RESUME_DATA.projects.map(project => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            </section>
+            
+            {/* FOOTER */}
+            <footer className="max-w-md pb-16 text-sm text-zinc-500 sm:pb-0">
+              <p>
+                Built with <span className="text-zinc-400">React</span> and <span className="text-zinc-400">Tailwind CSS</span>.
+              </p>
+            </footer>
+
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}
