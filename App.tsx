@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Github, Linkedin, Twitter, Mail, ExternalLink, ArrowRight, FileText } from 'lucide-react';
 import { RESUME_DATA } from './constants';
 import Timeline from './components/Timeline';
@@ -144,32 +144,13 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('about');
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  const sectionIds = useMemo(() => ['about', 'experience', 'projects'], []);
+  const sectionIds = useMemo(() => ['about', 'experience', 'education', 'projects'], []);
 
   // Use IntersectionObserver instead of scroll listeners (less main-thread churn).
   useEffect(() => {
-<<<<<<< HEAD
-    const handleScroll = () => {
-      const sections = ['about', 'experience', 'education', 'projects', 'contact'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top >= 0 && rect.top <= 300) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-=======
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
->>>>>>> 3a2a6ae52a94ad07bdd7c6717bcbc407fe3f269c
 
     if (elements.length === 0) return;
 
@@ -183,7 +164,7 @@ export default function App() {
         if (top?.target?.id) setActiveSection(top.target.id);
       },
       {
-        // “Active” when section header is near top portion of viewport.
+        // "Active" when section header is near top portion of viewport.
         root: null,
         rootMargin: '-20% 0px -70% 0px',
         threshold: [0.01, 0.1, 0.25, 0.5, 0.75, 1],
@@ -225,11 +206,7 @@ export default function App() {
               {/* Navigation (Desktop) */}
               <nav className="nav hidden lg:block mt-16" aria-label="In-page jump links">
                 <ul className="w-max">
-<<<<<<< HEAD
-                  {['about', 'experience', 'education', 'projects'].map((item) => (
-=======
                   {sectionIds.map((item) => (
->>>>>>> 3a2a6ae52a94ad07bdd7c6717bcbc407fe3f269c
                     <li key={item}>
                       <button 
                         onClick={() => scrollTo(item)}
