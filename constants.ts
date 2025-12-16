@@ -10,7 +10,7 @@ export const RESUME_DATA: ResumeData = {
     { platform: "GitHub", url: "https://github.com/vinayanand3", iconName: "Github" },
     { platform: "LinkedIn", url: "https://linkedin.com/in/vinayanand2", iconName: "Linkedin" },
     { platform: "Email", url: "mailto:vinayanand2@gmail.com", iconName: "Mail" },
-    { platform: "Resume", url: "/Vinay-resume/Vinay%20Bhaskarla_Resume.pdf", iconName: "FileText" }
+    { platform: "Resume", url: "/vinay-resume/Vinay%20Bhaskarla_Resume.pdf", iconName: "FileText" }
   ],
   experience: [
     {

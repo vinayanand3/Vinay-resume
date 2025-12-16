@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://vinayanand3.github.io/Vinay-resume",
+  "homepage": "https://vinayanand3.github.io/vinay-resume",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
