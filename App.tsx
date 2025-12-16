@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Twitter, Mail, ExternalLink, ArrowRight, FileText, ChevronRight } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, ExternalLink, ArrowRight, FileText } from 'lucide-react';
 import { RESUME_DATA } from './constants';
 import Timeline from './components/Timeline';
 import { SocialLink, Project, Experience, Education } from './types';
