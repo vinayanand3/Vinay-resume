@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { RESUME_DATA } from '../constants';
 
 const Timeline: React.FC = () => {
@@ -10,42 +10,43 @@ const Timeline: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Combine Education and Experience
-  const educationEvents = RESUME_DATA.education.map(edu => ({
-    id: edu.id,
-    type: 'education',
-    period: edu.period,
-    title: edu.degree,
-    subtitle: edu.institution
-  }));
+  const { events, startYear, totalDuration } = useMemo(() => {
+    // Combine Education and Experience once (and keep stable across parent rerenders).
+    const educationEvents = RESUME_DATA.education.map((edu) => ({
+      id: edu.id,
+      type: 'education' as const,
+      period: edu.period,
+      title: edu.degree,
+      subtitle: edu.institution,
+    }));
 
-  const experienceEvents = RESUME_DATA.experience.map(exp => ({
-    id: exp.id,
-    type: 'experience',
-    period: exp.period,
-    title: exp.role,
-    subtitle: exp.company
-  }));
+    const experienceEvents = RESUME_DATA.experience.map((exp) => ({
+      id: exp.id,
+      type: 'experience' as const,
+      period: exp.period,
+      title: exp.role,
+      subtitle: exp.company,
+    }));
 
-  const allEvents = [...educationEvents, ...experienceEvents];
+    const allEvents = [...educationEvents, ...experienceEvents];
 
-  // Parse years and sort
-  const parsedEvents = allEvents.map(event => {
-    const yearMatch = event.period.match(/\d{4}/);
-    const year = yearMatch ? parseInt(yearMatch[0]) : 0;
-    return { ...event, year };
-  }).sort((a, b) => a.year - b.year);
+    const parsedEvents = allEvents
+      .map((event) => {
+        const yearMatch = event.period.match(/\d{4}/);
+        const year = yearMatch ? parseInt(yearMatch[0], 10) : 0;
+        return { ...event, year };
+      })
+      .sort((a, b) => a.year - b.year)
+      .filter((e) => e.year > 0);
 
-  // Filter out any events with invalid years (0) if any
-  const events = parsedEvents.filter(e => e.year > 0);
+    const startYear = 2006; // Adjusted for B.Tech start/end
+    const endYear = new Date().getFullYear();
+    const totalDuration = Math.max(1, endYear - startYear);
 
-  const startYear = 2006; // Adjusted for B.Tech start/end
-  const endYear = new Date().getFullYear();
-  const totalDuration = endYear - startYear;
+    return { events: parsedEvents, startYear, totalDuration };
+  }, []);
 
-  const getPosition = (year: number) => {
-    return ((year - startYear) / totalDuration) * 100;
-  };
+  const getPosition = (year: number) => ((year - startYear) / totalDuration) * 100;
 
   return (
     <div className="w-full mt-10 mb-8 pr-8 opacity-0 animate-fade-in" style={{ animationFillMode: 'forwards' }}>
@@ -128,4 +129,4 @@ const Timeline: React.FC = () => {
   );
 };
 
-export default Timeline;
+export default memo(Timeline);
