@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { Github, Linkedin, Twitter, Mail, ExternalLink, ArrowRight, FileText } from 'lucide-react';
 import { RESUME_DATA } from './constants';
-import Timeline from './components/Timeline';
 import { SocialLink, Project, Experience, Education } from './types';
 
 // -- Sub Components --
