@@ -326,7 +326,7 @@ export default function App() {
               <h2 className="mt-3 text-lg font-medium text-zinc-100 tracking-tight sm:text-xl">
                 {RESUME_DATA.title}
               </h2>
-              <p className="mt-4 max-w-xs leading-normal text-zinc-400">
+              <p className="mt-3 max-w-sm sm:max-w-md lg:max-w-lg leading-normal text-zinc-400">
                 {RESUME_DATA.bio}
               </p>
 
