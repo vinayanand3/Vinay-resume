@@ -277,8 +277,25 @@ export default function App() {
                 </div>
               )}
 
+              {/* Socials & Resume */}
+              <div className="mt-8 flex items-center gap-4">
+                {RESUME_DATA.socials.map((link) => (
+                  <SocialButton key={link.platform} link={link} />
+                ))}
+                {/* Availability Indicator */}
+                {RESUME_DATA.availability && (
+                  <div className="ml-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-xs font-medium text-emerald-400">Available for work</span>
+                  </div>
+                )}
+              </div>
+
               {/* Navigation (Desktop) */}
-              <nav className="nav hidden lg:block mt-16" aria-label="In-page jump links">
+              <nav className="nav hidden lg:block mt-10" aria-label="In-page jump links">
                 <ul className="w-max">
                   {sectionIds.map((item) => (
                     <li key={item}>
@@ -295,23 +312,6 @@ export default function App() {
                   ))}
                 </ul>
               </nav>
-            </div>
-
-            {/* Socials & Resume */}
-            <div className="mt-8 flex items-center gap-4 lg:mt-0">
-               {RESUME_DATA.socials.map((link) => (
-                 <SocialButton key={link.platform} link={link} />
-               ))}
-               {/* Availability Indicator */}
-               {RESUME_DATA.availability && (
-                 <div className="ml-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                   </span>
-                   <span className="text-xs font-medium text-emerald-400">Available for work</span>
-                 </div>
-               )}
             </div>
           </header>
 
