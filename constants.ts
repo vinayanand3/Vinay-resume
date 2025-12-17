@@ -6,11 +6,14 @@ export const RESUME_DATA: ResumeData = {
   bio: "Design Engineer with 10+ years in Automotive (BIW, Product Design). Proficient in CAD (Catia/NX) and Python for engineering automation. Currently pursuing a Master's in Computer Science at Georgia Tech.",
   location: "Farmington Hills, MI",
   availability: true,
+  // Keep resume link for the "View Full Resume" CTA (works on both / and /preview/ because it's relative)
+  resumeUrl: "Vinay_Bhaskarla_Resume.pdf",
   socials: [
     { platform: "GitHub", url: "https://github.com/vinayanand3", iconName: "Github" },
     { platform: "LinkedIn", url: "https://linkedin.com/in/vinayanand2", iconName: "Linkedin" },
     { platform: "Email", url: "mailto:vinayanand2@gmail.com", iconName: "Mail" },
-    { platform: "Resume", url: "/vinay-resume/Vinay_Bhaskarla_Resume.pdf", iconName: "FileText" }
+    // This icon now links to your project journey PDF (resume is available via "View Full Resume")
+    { platform: "Professional Journey", url: "projects/professional_journey.pdf", iconName: "FileText" }
   ],
   experience: [
     {

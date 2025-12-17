@@ -45,6 +45,8 @@ export interface ResumeData {
   bio: string;
   location: string;
   availability: boolean;
+  // Used by "View Full Resume" link (kept separate from socials/icons)
+  resumeUrl: string;
   socials: SocialLink[];
   experience: Experience[];
   education: Education[];

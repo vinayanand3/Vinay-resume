@@ -307,7 +307,7 @@ export default function App() {
   }, []);
 
   const resumeUrl = useMemo(
-    () => RESUME_DATA.socials.find((s) => s.platform === 'Resume')?.url || '#',
+    () => RESUME_DATA.resumeUrl || '#',
     []
   );
 
