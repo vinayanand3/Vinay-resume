@@ -421,7 +421,7 @@ export default function App() {
                    I have had the privilege of working with global OEMs including <span className="text-zinc-100">Rivian</span>, <span className="text-zinc-100">Ford</span>, <span className="text-zinc-100">FCA</span>, and <span className="text-zinc-100">Hyundai</span>, gaining valuable cross-functional experience.
                 </p>
                 <p>
-                  Currently, I am bridging the gap between mechanical engineering and software by pursuing a <span className="text-zinc-100">Master's in Computer Science (OMSCS)</span> at Georgia Tech. I am passionate about leveraging <span className="text-zinc-100">Python</span> and <span className="text-zinc-100">Generative AI</span> to build tools that optimize engineering workflows and solve complex manufacturing problems.
+                  Currently, I am bridging the gap between mechanical engineering and software by pursuing a <span className="text-zinc-100">Master's in Computer Science (Artificial Intelligence)</span> at Georgia Tech. I am passionate about leveraging <span className="text-zinc-100">Python</span> and <span className="text-zinc-100">Generative AI</span> to build tools that optimize engineering workflows and solve complex manufacturing problems.
                 </p>
               </div>
             </section>
