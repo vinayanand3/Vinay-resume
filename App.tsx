@@ -150,8 +150,11 @@ const ProjectCard: React.FC<{ project: Project; onSelect: (project: Project) => 
   );
 };
 
-const ProjectDetail: React.FC<{ project: Project; onBack: () => void }> = ({ project, onBack }) => (
-  <article className="space-y-6">
+const ProjectDetail: React.FC<{ project: Project; onBack: () => void }> = ({ project, onBack }) => {
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <article className="space-y-6">
     <button
       type="button"
       onClick={onBack}
@@ -179,6 +182,22 @@ const ProjectDetail: React.FC<{ project: Project; onBack: () => void }> = ({ pro
       {project.description}
     </p>
 
+    {/* Project image (shown after the description) */}
+    {project.image && !imageError ? (
+      <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 overflow-hidden">
+        <img
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          decoding="async"
+          className="w-full max-h-[420px] object-cover"
+          onError={() => setImageError(true)}
+        />
+      </div>
+    ) : (
+      <div className="rounded-xl border border-zinc-800 bg-gradient-to-br from-zinc-800 to-zinc-900 h-48 w-full" />
+    )}
+
     {project.details && project.details.length > 0 && (
       <div className="space-y-4 text-sm text-zinc-400 leading-relaxed">
         {project.details.map((paragraph, idx) => (
@@ -186,20 +205,9 @@ const ProjectDetail: React.FC<{ project: Project; onBack: () => void }> = ({ pro
         ))}
       </div>
     )}
-
-    {project.link && (
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-      >
-        View related work on GitHub
-        <ExternalLink className="h-4 w-4" />
-      </a>
-    )}
-  </article>
-);
+    </article>
+  );
+};
 
 // -- Main App Component --
 
