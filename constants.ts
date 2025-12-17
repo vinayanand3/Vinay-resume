@@ -94,7 +94,8 @@ export const RESUME_DATA: ResumeData = {
         "Automated report generation so that engineering, purchasing, and supplier quality can review a single, consistent data pack instead of manually stitching together spreadsheets."
       ],
       link: "https://github.com/vinayanand3",
-      image: "/vinay-resume/projects/nissan-flex-sourcing/image.jpg"
+      // Add an image to `public/projects/nissan-flex-sourcing/` and set it here when ready.
+      // image: "/vinay-resume/projects/nissan-flex-sourcing/<your-image>.png"
     },
     {
       id: "proj-2",
@@ -109,7 +110,7 @@ export const RESUME_DATA: ResumeData = {
         "Key skills/tools: CATIA V6 (3DX), ENOVIA (PLM), Jira; BIW structure design, GD&T, fastening strategy (Weld/SPR/FDS), DFM, root cause analysis, and material selection (Al → steel)."
       ],
       link: "https://github.com/vinayanand3",
-      image: "/vinay-resume/projects/rivian-biw-design/image.jpg"
+      image: "/vinay-resume/projects/rivian-biw-design/rivian-contributions.png"
     },
     {
       id: "proj-3",
@@ -121,7 +122,7 @@ export const RESUME_DATA: ResumeData = {
         "Jeep Wrangler EA Brackets: Led design of energy‑absorbing (EA) brackets on the Jeep Wrangler cross‑car beam, starting from FD curves and FMVSS targets provided by the safety team. Collaborated closely with CAE to iterate bracket geometry and thickness, translating crash simulation feedback into practical, manufacturable sheet‑metal solutions in NX/Catia. Drove the parts through release, coordinating with suppliers and manufacturing to ensure tooling feasibility and robust performance during physical frontal crash testing."
       ],
       link: "https://github.com/vinayanand3",
-      image: "/vinay-resume/projects/fca-steering-ea/image.jpg"
+      image: "/vinay-resume/projects/fca-steering-ea/ram-1500.png"
     },
     {
       id: "proj-4",
@@ -134,7 +135,7 @@ export const RESUME_DATA: ResumeData = {
         "Result: Delivered production-feasible designs on time, facilitating the integration of critical EV hardware. Recognized with a Ford Recognition Award for the successful design of the complex HV battery cooling ducts."
       ],
       link: "https://github.com/vinayanand3",
-      image: "/vinay-resume/projects/ford-steering-components/image.jpg"
+      image: "/vinay-resume/projects/ford-steering-components/ford-f150.png"
     },
     {
       id: "proj-5",
@@ -147,7 +148,7 @@ export const RESUME_DATA: ResumeData = {
         "Conducted benchmarking studies and cost reduction initiatives, working with cross-functional teams to optimize designs for production."
       ],
       link: "https://github.com/vinayanand3",
-      image: "/vinay-resume/projects/hyundai-biw-design/image.jpg"
+      image: "/vinay-resume/projects/hyundai-biw-design/hyundai-i20.png"
     }
   ],
   skills: [
