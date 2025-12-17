@@ -54,6 +54,60 @@ const Timeline: React.FC = () => {
     return years;
   }, [events]);
 
+  const positionedEvents = useMemo(() => {
+    const byYear = new Map<number, typeof events>();
+    events.forEach((e) => {
+      const list = byYear.get(e.year) ?? [];
+      list.push(e);
+      byYear.set(e.year, list);
+    });
+
+    const items: Array<{
+      event: (typeof events)[number];
+      position: number;
+      stackOffsetY: number;
+      tooltipAlign: 'left' | 'center' | 'right';
+      animDelayMs: number;
+    }> = [];
+
+    const stackGapPx = 14;
+    const leftEdgeThreshold = 12;
+    const rightEdgeThreshold = 88;
+
+    // Keep stable ordering: education first, then experience, then by title/subtitle.
+    const sortWithinYear = (a: (typeof events)[number], b: (typeof events)[number]) => {
+      if (a.type !== b.type) return a.type === 'education' ? -1 : 1;
+      const at = `${a.subtitle} ${a.title}`;
+      const bt = `${b.subtitle} ${b.title}`;
+      return at.localeCompare(bt);
+    };
+
+    Array.from(byYear.entries())
+      .sort((a, b) => a[0] - b[0])
+      .forEach(([year, yearEvents]) => {
+        const sorted = [...yearEvents].sort(sortWithinYear);
+        const position = getPosition(year);
+        const tooltipAlign: 'left' | 'center' | 'right' =
+          position < leftEdgeThreshold ? 'left' : position > rightEdgeThreshold ? 'right' : 'center';
+
+        const count = sorted.length;
+        const center = (count - 1) / 2;
+
+        sorted.forEach((event, i) => {
+          const stackOffsetY = (i - center) * stackGapPx;
+          items.push({
+            event,
+            position,
+            stackOffsetY,
+            tooltipAlign,
+            animDelayMs: items.length * 150,
+          });
+        });
+      });
+
+    return items;
+  }, [events, startYear, totalDuration]);
+
   return (
     <div className="w-full mt-10 mb-8 opacity-0 animate-fade-in overflow-visible" style={{ animationFillMode: 'forwards' }}>
       {/* Year annotations: only show years that exist in Education/Experience periods */}
@@ -85,24 +139,42 @@ const Timeline: React.FC = () => {
         </div>
 
         {/* Event Nodes */}
-        {events.map((event, index) => {
-          const position = getPosition(event.year);
+        {positionedEvents.map((p, index) => {
+          const { event, position, stackOffsetY, tooltipAlign, animDelayMs } = p;
           // Keep the marker inside the container even when it's at the start/end of the range.
           const left = `clamp(6px, ${position}%, calc(100% - 6px))`;
           const isHovered = hoveredIndex === index;
           const isEducation = event.type === 'education';
           
+          const tooltipPosClass =
+            tooltipAlign === 'left'
+              ? 'left-1/2 translate-x-0'
+              : tooltipAlign === 'right'
+                ? 'left-1/2 -translate-x-full'
+                : 'left-1/2 -translate-x-1/2';
+
+          const tooltipArrowPosClass =
+            tooltipAlign === 'left'
+              ? 'left-0 -translate-x-1/2'
+              : tooltipAlign === 'right'
+                ? 'right-0 translate-x-1/2 left-auto'
+                : 'left-1/2 -translate-x-1/2';
+
           return (
             <div 
               key={event.id}
               className="absolute"
-              style={{ left }}
+              style={{
+                left,
+                top: '50%',
+                transform: `translate(-50%, -50%) translateY(${stackOffsetY}px)`,
+              }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Dot */}
               <div 
-                className={`w-3 h-3 -ml-1.5 rounded-full border-2 transition-all duration-300 z-10 relative cursor-pointer
+                className={`w-3 h-3 rounded-full border-2 transition-all duration-300 z-10 relative cursor-pointer
                   ${animate ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}
                   ${isHovered 
                     ? (isEducation ? 'bg-emerald-400 border-emerald-400 scale-125' : 'bg-accent border-accent scale-125')
@@ -110,12 +182,12 @@ const Timeline: React.FC = () => {
                   }
                   ${!isHovered && hoveredIndex !== null ? 'opacity-50' : 'opacity-100'}
                 `}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                style={{ transitionDelay: `${animDelayMs}ms` }}
               />
               
               {/* Tooltip */}
               <div 
-                className={`absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-[220px] 
+                className={`absolute bottom-full mb-3 ${tooltipPosClass} w-max max-w-[220px] 
                   px-3 py-2 bg-zinc-900 text-zinc-200 text-xs rounded-lg border border-zinc-800 shadow-xl
                   transition-all duration-200 z-50 pointer-events-none origin-bottom
                   ${isHovered ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-2'}
@@ -128,7 +200,7 @@ const Timeline: React.FC = () => {
                 <div className="text-zinc-400 text-[10px] leading-tight mt-0.5">{event.title}</div>
                 
                 {/* Tooltip Arrow */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-4 border-transparent border-t-zinc-800" />
+                <div className={`absolute top-full ${tooltipArrowPosClass} -mt-px border-4 border-transparent border-t-zinc-800`} />
               </div>
             </div>
           );
