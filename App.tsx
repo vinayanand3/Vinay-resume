@@ -255,7 +255,7 @@ export default function App() {
         <div className="lg:flex lg:justify-between lg:gap-10 xl:gap-12">
           
           {/* -- LEFT COLUMN (Fixed Header) -- */}
-          <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[45%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0">
+          <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[45%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0 [@media(min-width:1024px)_and_(max-height:800px)]:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-12">
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-100">
                 <a href="/">{RESUME_DATA.name}</a>
@@ -269,7 +269,7 @@ export default function App() {
 
               {/* Timeline Animation (Desktop) */}
               {isDesktop && (
-                <div className="hidden lg:block mt-10">
+                <div className="hidden lg:block mt-10 [@media(min-width:1024px)_and_(max-height:800px)]:mt-6">
                   <Suspense fallback={<div className="mb-8 pr-8 h-12" />}>
                     <LazyTimeline />
                   </Suspense>
@@ -277,7 +277,7 @@ export default function App() {
               )}
 
               {/* Socials & Resume */}
-              <div className="mt-8 flex items-center gap-4">
+              <div className="mt-8 flex flex-wrap items-center gap-4 [@media(min-width:1024px)_and_(max-height:800px)]:mt-5 [@media(min-width:1024px)_and_(max-height:800px)]:gap-3">
                 {RESUME_DATA.socials.map((link) => (
                   <SocialButton key={link.platform} link={link} />
                 ))}
@@ -294,7 +294,7 @@ export default function App() {
               </div>
 
               {/* Navigation (Desktop) */}
-              <nav className="nav hidden lg:block mt-10" aria-label="In-page jump links">
+              <nav className="nav hidden lg:block mt-10 [@media(min-width:1024px)_and_(max-height:800px)]:mt-7" aria-label="In-page jump links">
                 <ul className="w-max">
                   {sectionIds.map((item) => (
                     <li key={item}>
