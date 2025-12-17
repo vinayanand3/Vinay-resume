@@ -70,7 +70,9 @@ const Timeline: React.FC = () => {
       animDelayMs: number;
     }> = [];
 
-    const stackGapPx = 14;
+    // Vertical spacing between stacked events in the same year.
+    // Keep generous so each dot remains easy to hover/click.
+    const stackGapPx = 22;
     const leftEdgeThreshold = 12;
     const rightEdgeThreshold = 88;
 
@@ -172,7 +174,8 @@ const Timeline: React.FC = () => {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Dot */}
+              {/* Dot (with slightly larger hit-area for easier hover) */}
+              <div className="absolute inset-0 -m-2" aria-hidden="true" />
               <div 
                 className={`w-3 h-3 rounded-full border-2 transition-all duration-300 z-10 relative cursor-pointer
                   ${animate ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}
