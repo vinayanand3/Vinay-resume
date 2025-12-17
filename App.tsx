@@ -256,7 +256,7 @@ export default function App() {
         <div className="lg:flex lg:h-screen lg:overflow-hidden lg:justify-between lg:gap-8 xl:gap-10">
           
           {/* -- LEFT COLUMN (Fixed Header) -- */}
-          <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[48%] xl:w-[46%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0 [@media(min-width:1024px)_and_(max-height:800px)]:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-12">
+          <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[48%] xl:w-[46%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0 no-scrollbar [@media(min-width:1024px)_and_(max-height:800px)]:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-12">
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-100">
                 <a href="/">{RESUME_DATA.name}</a>
