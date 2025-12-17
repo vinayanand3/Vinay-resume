@@ -99,12 +99,14 @@ export const RESUME_DATA: ResumeData = {
     {
       id: "proj-2",
       title: "Rivian - R1T/R1S/EDV BIW Design",
-      description: "R1T/R1S/EDV - BIW design (floor, B-pillar, roof components), welds, fasteners and sealers commonization, benchmarking. Designed and developed BIW structures for Rivian's electric vehicles.",
-      technologies: ["Catia V6 (3DX)", "BIW Design", "Manufacturing", "EV Design"],
+      description: "Senior Mechanical Design Engineer | Rivian (2021–2024) — Designed and launched BIW subsystems for RPV/EDV vans; owned fastening/sealing strategy, value engineering, and launch issue resolution.",
+      technologies: ["CATIA V6 (3DX)", "ENOVIA (PLM)", "Jira", "BIW Design", "GD&T", "Weld/SPR/FDS", "DFM", "Root Cause Analysis", "Material Selection"],
       details: [
-        "Owned BIW design for Rivian's R1T, R1S, and EDV platforms, including floor panels, B-pillar components, and roof structures in Catia V6 (3DX).",
-        "Defined and released resistance spot weld, self‑piercing rivet (SPR), and flow‑drill screw patterns across BIW structure, focusing on commonization between platforms to reduce complexity and support cost‑saving initiatives.",
-        "Conducted benchmarking studies and provided plant support in Normal, IL, using production feedback to iterate fastener layouts and sealing strategies."
+        "Designed and launched critical BIW subsystems for the RPV/EDV electric vans, including cargo cooling ventilation, crash sensor brackets, and radar integration features using CATIA V6.",
+        "Defined and executed the fastening and sealing strategy (welds, SPRs, sealers) for the entire BIW structure; implemented a fastener commonization roadmap that streamlined assembly and reduced costs.",
+        "Led a value-engineering initiative to redesign skateboard midrails from aluminum extrusions to steel tubes, enhancing durability while optimizing material costs.",
+        "Resolved high-priority manufacturing issues during launch by identifying and fixing a weld spatter defect on B-pillars that compromised airbag safety on R1T and RPV lines.",
+        "Key skills/tools: CATIA V6 (3DX), ENOVIA (PLM), Jira; BIW structure design, GD&T, fastening strategy (Weld/SPR/FDS), DFM, root cause analysis, and material selection (Al → steel)."
       ],
       link: "https://github.com/vinayanand3",
       image: "/vinay-resume/projects/rivian-biw-design/image.jpg"
