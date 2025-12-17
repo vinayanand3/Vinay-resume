@@ -74,7 +74,7 @@ export const RESUME_DATA: ResumeData = {
     {
       id: "edu-1",
       institution: "Georgia Institute of Technology",
-      degree: "MS in Computer Science (OMSCS)",
+      degree: "MS in Computer Science (Artificial Intelligence)",
       period: "2024 — Present"
     },
     {
