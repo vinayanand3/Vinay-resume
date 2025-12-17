@@ -250,9 +250,10 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-background text-zinc-400 selection:bg-accent/20 selection:text-accent font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-background text-zinc-400 selection:bg-accent/20 selection:text-accent font-sans">
       <div className="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-12 lg:py-0">
-        <div className="lg:flex lg:justify-between lg:gap-10 xl:gap-12">
+        {/* On desktop, keep the left column fixed and scroll only the right column. */}
+        <div className="lg:flex lg:h-screen lg:overflow-hidden lg:justify-between lg:gap-10 xl:gap-12">
           
           {/* -- LEFT COLUMN (Fixed Header) -- */}
           <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[45%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0 [@media(min-width:1024px)_and_(max-height:800px)]:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-12">
@@ -315,7 +316,7 @@ export default function App() {
           </header>
 
           {/* -- RIGHT COLUMN (Scrollable Content) -- */}
-          <main className="pt-24 lg:flex-1 lg:min-w-0 lg:py-24">
+          <main className="pt-24 lg:flex-1 lg:min-w-0 lg:h-screen lg:overflow-y-auto lg:py-24">
             
             {/* ABOUT */}
             <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
