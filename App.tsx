@@ -5,6 +5,16 @@ import { SocialLink, Project, Experience, Education } from './types';
 
 // -- Sub Components --
 
+// Helper: extract the most relevant year for sorting period strings (use end-year; treat "Present" as current year).
+function getSortYear(period: string): number {
+  if (period.includes('Present')) {
+    const years = period.match(/\d{4}/g);
+    return years && years.length > 0 ? parseInt(years[years.length - 1], 10) : new Date().getFullYear();
+  }
+  const years = period.match(/\d{4}/g);
+  return years && years.length > 0 ? parseInt(years[years.length - 1], 10) : 0;
+}
+
 const IconMap = {
   Github,
   Linkedin,
@@ -244,7 +254,16 @@ export default function App() {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const sectionIds = useMemo(() => ['about', 'experience', 'education', 'projects'], []);
+  // On desktop, move Education into the left column for a cleaner right side.
+  // On smaller screens, keep Education in the main scrollable content.
+  const sectionIds = useMemo(
+    () => (isDesktop ? (['about', 'experience', 'projects'] as const) : (['about', 'experience', 'education', 'projects'] as const)),
+    [isDesktop]
+  );
+
+  const sortedEducation = useMemo(() => {
+    return [...RESUME_DATA.education].sort((a, b) => getSortYear(b.period) - getSortYear(a.period));
+  }, []);
 
   // Use IntersectionObserver instead of scroll listeners (less main-thread churn).
   useEffect(() => {
@@ -348,6 +367,34 @@ export default function App() {
                   ))}
                 </ul>
               </nav>
+
+              {/* Educational Qualifications (Desktop-only, moved from right column) */}
+              {isDesktop && (
+                <div className="hidden lg:block mt-10 [@media(min-width:1024px)_and_(max-height:800px)]:mt-7">
+                  <div className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-4">
+                    Educational Qualifications
+                  </div>
+                  <ul className="space-y-4">
+                    {sortedEducation.map((edu) => (
+                      <li key={edu.id} className="max-w-sm">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="min-w-0">
+                            <div className="text-sm font-medium text-zinc-100 leading-snug">
+                              {edu.degree}
+                            </div>
+                            <div className="text-xs text-zinc-500 mt-1 truncate">
+                              {edu.institution}
+                            </div>
+                          </div>
+                          <div className="shrink-0 text-[11px] text-zinc-500 font-mono whitespace-nowrap pt-0.5">
+                            {edu.period}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </header>
 
@@ -409,38 +456,17 @@ export default function App() {
               </a>
             </section>
 
-            {/* EDUCATIONAL QUALIFICATIONS */}
-            <section id="education" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <SectionHeader title="Educational Qualifications" />
-              <div>
-                {(() => {
-                  // Helper function to extract sort year from period string
-                  // Uses the last year in the period (end year) for proper chronological sorting
-                  const getSortYear = (period: string): number => {
-                    // Check if period contains "Present" - use current year for sorting
-                    if (period.includes('Present')) {
-                      const years = period.match(/\d{4}/g);
-                      // If there's a year before "Present", use it; otherwise use current year
-                      return years && years.length > 0 ? parseInt(years[years.length - 1]) : new Date().getFullYear();
-                    }
-                    // Extract all years and use the last one (end year)
-                    const years = period.match(/\d{4}/g);
-                    return years && years.length > 0 ? parseInt(years[years.length - 1]) : 0;
-                  };
-                  
-                  // Sort education by date (descending - most recent first)
-                  const sortedEducation = [...RESUME_DATA.education].sort((a, b) => {
-                    const yearA = getSortYear(a.period);
-                    const yearB = getSortYear(b.period);
-                    return yearB - yearA;
-                  });
-                  
-                  return sortedEducation.map(edu => (
+            {/* EDUCATIONAL QUALIFICATIONS (keep in main flow on smaller screens only) */}
+            {!isDesktop && (
+              <section id="education" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+                <SectionHeader title="Educational Qualifications" />
+                <div>
+                  {sortedEducation.map((edu) => (
                     <EducationCard key={edu.id} education={edu} />
-                  ));
-                })()}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* PROJECTS */}
             <section id="projects" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">

@@ -5,7 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   // This is crucial for GitHub Pages. It must match your repository name.
-  base: '/vinay-resume/',
+  // Allow overriding for preview deploys (e.g. /vinay-resume/preview/)
+  base: process.env.VITE_BASE ?? '/vinay-resume/',
   build: {
     rollupOptions: {
       output: {
