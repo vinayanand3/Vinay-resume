@@ -50,7 +50,7 @@ const SocialButton: React.FC<{ link: SocialLink }> = ({ link }) => {
 };
 
 const SectionHeader: React.FC<{ title: string }> = ({ title }) => (
-  <h2 className="text-sm font-bold uppercase tracking-widest text-zinc-500 mb-8 sticky top-0 bg-background/80 backdrop-blur-sm py-4 z-10 w-full">
+  <h2 className="text-sm font-bold uppercase tracking-widest text-zinc-500 mb-8">
     {title}
   </h2>
 );
@@ -251,12 +251,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-zinc-400 selection:bg-accent/20 selection:text-accent font-sans">
-      <div className="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-12 lg:py-0">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-12 xl:px-16 2xl:px-20 py-12 lg:py-0">
         {/* On desktop, keep the left column fixed and scroll only the right column. */}
-        <div className="lg:flex lg:h-screen lg:overflow-hidden lg:justify-between lg:gap-10 xl:gap-12">
+        <div className="lg:flex lg:h-screen lg:overflow-hidden lg:justify-between lg:gap-8 xl:gap-10">
           
           {/* -- LEFT COLUMN (Fixed Header) -- */}
-          <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[45%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0 [@media(min-width:1024px)_and_(max-height:800px)]:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-12">
+          <header className="lg:sticky lg:top-0 lg:h-screen lg:w-[48%] xl:w-[46%] lg:flex-none lg:py-24 lg:overflow-y-auto lg:pr-3 min-w-0 [@media(min-width:1024px)_and_(max-height:800px)]:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-12">
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-100">
                 <a href="/">{RESUME_DATA.name}</a>
@@ -316,7 +316,7 @@ export default function App() {
           </header>
 
           {/* -- RIGHT COLUMN (Scrollable Content) -- */}
-          <main className="pt-24 lg:flex-1 lg:min-w-0 lg:h-screen lg:overflow-y-auto lg:py-24">
+          <main className="pt-24 lg:flex-1 lg:min-w-0 lg:h-screen lg:overflow-y-auto lg:py-24 no-scrollbar">
             
             {/* ABOUT */}
             <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">

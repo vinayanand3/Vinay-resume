@@ -49,7 +49,7 @@ const Timeline: React.FC = () => {
   const getPosition = (year: number) => ((year - startYear) / totalDuration) * 100;
 
   return (
-    <div className="w-full mt-10 mb-8 pr-8 opacity-0 animate-fade-in" style={{ animationFillMode: 'forwards' }}>
+    <div className="w-full mt-10 mb-8 opacity-0 animate-fade-in overflow-visible" style={{ animationFillMode: 'forwards' }}>
       <div className="flex justify-between text-[10px] uppercase tracking-wider text-zinc-600 font-mono mb-3">
         <span>{startYear}</span>
         <span>Present</span>

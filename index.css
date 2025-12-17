@@ -25,3 +25,14 @@ body {
   background: #3f3f46;
 }
 
+/* Hide scrollbars (keep scroll behavior) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+  width: 0;
+  height: 0;
+}
+
